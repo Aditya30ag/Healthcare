@@ -49,15 +49,15 @@ function PatientSignin() {
               onClick={async () => {
                 try {
                   const response = await axios.post(
-                    "http://localhost:3000/api/v1/patient/signin",
+                    `http://localhost:3000/api/v1/patient/signin/${id}`,
                     {
                       email,
                       password,
                     }
                   );
                   //  console.log("this is the response bc", response.data.token);
-                  localStorage.setItem("token", response.data.token);
-                  localStorage.setItem("id", response.data.id);
+                  localStorage.setItem("tokenpatient", response.data.token);
+                  localStorage.setItem("patientid", response.data.patientid);
                   localStorage.setItem("userType", "patient");
                   navigate("/patient-dashboard/");
                 } catch (error) {
@@ -68,7 +68,7 @@ function PatientSignin() {
               type="button"
               className="w-full h-9 bg-[rgba(240,78,47,255)] rounded-md text-white"
             >
-              Sign up
+              Sign In
             </button>
             <div className="flex justify-center">
               <div className="cursor-pointer ">

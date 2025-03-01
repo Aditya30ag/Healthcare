@@ -17,31 +17,48 @@ function HeroLeft() {
 
         {/* Symptom Tracker Button */}
         <div className="flex gap-4 mt-4">
-  <div
-    onClick={() => navigate("/sysmptoms-api")}
-    className="w-64 p-3 text-lg font-medium text-center text-white rounded-xl bg-gradient-to-r from-red-500 to-pink-500 shadow-md cursor-pointer transition-transform transform hover:scale-105"
-  >
-    Symptom Tracker
-  </div>
-  <a href="http://127.0.0.1:5000" target="_blank" style={{textDecoration: "none"}}>
-  <div
-    
-    className="w-64 p-3 text-lg font-medium text-center text-white rounded-xl bg-gradient-to-r from-red-500 to-pink-500 shadow-md cursor-pointer transition-transform transform hover:scale-105"
-  >
-    ECG Scanner
-  </div></a>
-</div>
+          <div
+            onClick={() => navigate("/sysmptoms-api")}
+            className="w-64 p-3 text-lg font-medium text-center text-white rounded-xl bg-gradient-to-r from-red-500 to-pink-500 shadow-md cursor-pointer transition-transform transform hover:scale-105"
+          >
+            Symptom Tracker
+          </div>
+          <a
+            href="http://127.0.0.1:5000"
+            target="_blank"
+            style={{ textDecoration: "none" }}
+          >
+            <div className="w-64 p-3 text-lg font-medium text-center text-white rounded-xl bg-gradient-to-r from-red-500 to-pink-500 shadow-md cursor-pointer transition-transform transform hover:scale-105">
+              ECG Scanner
+            </div>
+          </a>
+        </div>
       </div>
 
       {/* Right Section - Specialties List */}
       <div className="lg:w-1/2 w-full">
         <ul className="space-y-6">
           {[
-            { name: "Cardiac Care", path: "/cardiac-care", color: "text-red-500" },
-            { name: "Cancer Care", path: "/cancer-care", color: "text-gray-700" },
-            { name: "Neurosciences", path: "/neurosciences", color: "text-gray-700" },
-            { name: "Gastrosciences", path: "/gastrosciences", color: "text-gray-700" },
-
+            {
+              name: "Cardiac Care",
+              path: "/cardiac-care",
+              color: "text-red-500",
+            },
+            {
+              name: "Cancer Care",
+              path: "/cancer-care",
+              color: "text-gray-700",
+            },
+            {
+              name: "Neurosciences",
+              path: "/neurosciences",
+              color: "text-gray-700",
+            },
+            {
+              name: "Gastrosciences",
+              path: "/gastrosciences",
+              color: "text-gray-700",
+            },
           ].map((item, index) => (
             <li
               key={index}
@@ -49,7 +66,9 @@ function HeroLeft() {
               className="flex items-center justify-around cursor-pointer group"
             >
               <div className="flex items-center">
-                <span className={`font-semibold transition-colors group-hover:text-red-500 ${item.color}`}>
+                <span
+                  className={`font-semibold transition-colors group-hover:text-red-500 ${item.color}`}
+                >
                   {item.name}
                 </span>
               </div>
@@ -61,7 +80,6 @@ function HeroLeft() {
         </ul>
 
         {/* View All Specialties Button */}
-        
       </div>
     </div>
   );

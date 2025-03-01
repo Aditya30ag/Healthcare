@@ -97,17 +97,7 @@ const SymptomChecker = () => {
             </div>
           )}
 
-          {/* Consult a Doctor Button */}
-          {results.length > 0 && (
-            <div className="flex justify-center mt-6">
-              <button
-                onClick={() => navigate(`/special-doctors/${results[0]?.doctor}`)}
-                className="px-6 py-3 text-lg font-semibold text-white bg-green-600 rounded-lg shadow-lg hover:bg-green-700 transition duration-300"
-              >
-                Consult a {results[0]?.doctor}
-              </button>
-            </div>
-          )}
+         
         </div>
       </div>
     </>

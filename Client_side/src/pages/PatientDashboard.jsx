@@ -7,6 +7,8 @@ import PastTreatments from "../components/PastTreatments";
 import BMICalculator from "../components/BMICalculator";
 import InputBar from "../components/InputBar";
 import Chatbot from "../components/AIhealth";
+import WaterNutritionTracker from "../components/NutritionTracker";
+import PeriodOvulationTracker from "../components/Peroid";
 
 function PatientDashboard() {
   const [activeTab, setActiveTab] = useState("overview");
@@ -97,16 +99,8 @@ function PatientDashboard() {
     <>
       <Navbar />
       <div className="flex mt-16 bg-gradient-to-b from-blue-50 to-white min-h-screen">
-        <SideBar />
         <main className="flex-1 p-4">
           <div className="mb-4">
-            <div className="flex justify-between items-center">
-              <h1 className="text-2xl font-bold text-gray-800">
-                Patient Dashboard
-              </h1>
-              <InputBar />
-            </div>
-
             {/* Safety Alerts Banner */}
             {safetyAlerts.length > 0 && (
               <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
@@ -502,9 +496,42 @@ function PatientDashboard() {
               </div>
             )}
           </div>
-          <div className="mt-4">
-            <Chatbot />
+          <div className="mt-4 flex flex-wrap gap-4">
+            <div className="flex-1 min-w-[300px]">
+              <Chatbot />
+            </div>
+            <div className="flex-1 min-w-[300px]">
+              <WaterNutritionTracker />
+            </div>
+            <div className="flex-1 min-w-[300px]">
+              <PeriodOvulationTracker />
+            </div>
           </div>
+          <div className="mt-4 flex flex-wrap gap-4">
+            <div className="flex gap-4 mt-4">
+            <a
+                href="/sysmptoms-api"
+                target="_blank"
+                style={{ textDecoration: "none" }}
+              >
+              <div
+                onClick={() => navigate("/sysmptoms-api")}
+                className="w-64 p-3 text-lg font-medium text-center text-white rounded-xl bg-gradient-to-r from-red-500 to-pink-500 shadow-md cursor-pointer transition-transform transform hover:scale-105"
+              >
+                Symptom Tracker
+              </div></a>
+              <a
+                href="http://127.0.0.1:5000"
+                target="_blank"
+                style={{ textDecoration: "none" }}
+              >
+                <div className="w-64 p-3 text-lg font-medium text-center text-white rounded-xl bg-gradient-to-r from-red-500 to-pink-500 shadow-md cursor-pointer transition-transform transform hover:scale-105">
+                  ECG Scanner
+                </div>
+              </a>
+            </div>
+          </div>
+
           {/* Emergency Contact Information */}
           <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
             <h2 className="text-lg font-bold text-red-700 mb-2">

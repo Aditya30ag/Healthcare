@@ -18,8 +18,7 @@ import Gastrosciences from "./DiseasePages/Gastrosciences";
 import SymptomChecker from "./pages/SysmptomApi";
 import SpecialDoctors from "./pages/SpecialDoctors";
 import Emergency from "./pages/Emergency";
-import ContactUs from "./components/ContactUs";
-import WaterNutritionTracker from "./components/NutritionTracker";
+
 
 function App() {
   return (

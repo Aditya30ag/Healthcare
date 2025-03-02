@@ -507,30 +507,7 @@ function PatientDashboard() {
               <PeriodOvulationTracker />
             </div>
           </div>
-          <div className="mt-4 flex flex-wrap gap-4">
-            <div className="flex gap-4 mt-4">
-            <a
-                href="/sysmptoms-api"
-                target="_blank"
-                style={{ textDecoration: "none" }}
-              >
-              <div
-                onClick={() => navigate("/sysmptoms-api")}
-                className="w-64 p-3 text-lg font-medium text-center text-white rounded-xl bg-gradient-to-r from-red-500 to-pink-500 shadow-md cursor-pointer transition-transform transform hover:scale-105"
-              >
-                Symptom Tracker
-              </div></a>
-              <a
-                href="http://127.0.0.1:5000"
-                target="_blank"
-                style={{ textDecoration: "none" }}
-              >
-                <div className="w-64 p-3 text-lg font-medium text-center text-white rounded-xl bg-gradient-to-r from-red-500 to-pink-500 shadow-md cursor-pointer transition-transform transform hover:scale-105">
-                  ECG Scanner
-                </div>
-              </a>
-            </div>
-          </div>
+          
 
           {/* Emergency Contact Information */}
           <div className="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">

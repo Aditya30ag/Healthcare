@@ -8,7 +8,6 @@ import PatientSignup from "./pages/PatientSignup";
 import PatientSignin from "./pages/PatientSignin";
 import HospitalList from "./pages/HospitalList";
 import DoctorList from "./pages/DoctorList";
-import Dispensation from "./pages/Dispensation";
 import PatientDashboard from "./pages/PatientDashboard";
 import CancerCare from "./pages/CancerCare";
 import AllDoctorPages from "./pages/AllDoctorPages";
@@ -42,11 +41,9 @@ function App() {
           />
           <Route path="/hospital-list" element={<HospitalList />} />
           <Route path="/doctor-list/:hospitalId" element={<DoctorList />} />
-          <Route path="/dispensation" element={<Dispensation />} />
           <Route path="/patient-dashboard" element={<PatientDashboard />} />
           <Route path="/cancer-care" element={<CancerCare />} />
           <Route path="/all-doctors" element={<AllDoctorPages />} />
-          <Route path="/cardiac-care" element={<CardiacCare />} />
           <Route path="/Neurosciences" element={<Neuroscience />} />
           <Route path="/gastrosciences" element={<Gastrosciences />} />
           <Route path="/sysmptoms-api" element={<SymptomChecker />} />

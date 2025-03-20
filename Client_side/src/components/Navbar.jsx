@@ -62,7 +62,7 @@ function Navbar() {
           </a>
           <div className="px-3 pt-3 text-3xl max-md:text-xl max-md:mt-2">
             <a href="/" className="text-black no-underline">
-              CityCare
+              HealthCare
             </a>
           </div>
         </div>
@@ -111,13 +111,7 @@ function Navbar() {
                 </div>
               )}
             </div>
-            
-            <div onClick={() => navigate("/dispensation")} className="hover:scale-110">
-              Medication
-            </div>
-            <div onClick={scrollToBottom} className="duration-100 hover:scale-110">
-              Contact Us
-            </div>
+
           </div>
         </div>
 

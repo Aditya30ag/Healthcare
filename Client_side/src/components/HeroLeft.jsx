@@ -35,52 +35,7 @@ function HeroLeft() {
         </div>
       </div>
 
-      {/* Right Section - Specialties List */}
-      <div className="lg:w-1/2 w-full">
-        <ul className="space-y-6">
-          {[
-            {
-              name: "Cardiac Care",
-              path: "/cardiac-care",
-              color: "text-red-500",
-            },
-            {
-              name: "Cancer Care",
-              path: "/cancer-care",
-              color: "text-gray-700",
-            },
-            {
-              name: "Neurosciences",
-              path: "/neurosciences",
-              color: "text-gray-700",
-            },
-            {
-              name: "Gastrosciences",
-              path: "/gastrosciences",
-              color: "text-gray-700",
-            },
-          ].map((item, index) => (
-            <li
-              key={index}
-              onClick={() => navigate(item.path)}
-              className="flex items-center justify-around cursor-pointer group"
-            >
-              <div className="flex items-center">
-                <span
-                  className={`font-semibold transition-colors group-hover:text-red-500 ${item.color}`}
-                >
-                  {item.name}
-                </span>
-              </div>
-              <span className="text-xl transition-transform transform group-hover:translate-x-1 group-hover:text-red-500">
-                &gt;
-              </span>
-            </li>
-          ))}
-        </ul>
-
-        {/* View All Specialties Button */}
-      </div>
+      
     </div>
   );
 }

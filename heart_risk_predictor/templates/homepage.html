@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECG BPM Calculator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+</head>
+<body class="min-h-screen bg-gradient-to-b from-blue-50 to-indigo-100">
+    <!-- Navbar -->
+    <nav class="bg-gradient-to-r from-blue-700 to-indigo-800 shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="flex items-center space-x-2">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                            <span class="text-white font-bold text-xl">ECG Analyzer Pro</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="/" class="text-white hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Dashboard</a>
+                        <a href="/home" class="text-white hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">ECG Analysis</a>
+                        <a href="/index" class="text-white hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Manual Analysis</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-blue-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-blue-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="/" class="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-600">Dashboard</a>
+                <a href="/home" class="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-600">ECG Analysis</a>
+                <a href="/index" class="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-600">Manual Analysis</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-20 pb-12 px-4">
+        <div class="max-w-4xl mx-auto mt-12">
+            <!-- Upload Card -->
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden mb-8 transform hover:scale-102 transition-all duration-300">
+                <div class="p-8">
+                    <div class="text-center mb-8">
+                        <h1 class="text-3xl font-bold text-gray-900 mb-2">ECG Analysis</h1>
+                        <p class="text-gray-600">Upload your ECG image for instant BPM calculation</p>
+                    </div>
+
+                    <!-- Upload Form -->
+                    <form action="/result" method="POST" enctype="multipart/form-data" class="space-y-6">
+                        <!-- File Upload Area -->
+                        <div class="relative">
+                            <div class="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-blue-500 transition-colors duration-300">
+                                <input id="fileInput" type="file" name="ecg_file" accept="image/*" required 
+                                    class="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
+                                    onchange="updateFileName(this)">
+                                <div class="space-y-4">
+                                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                            d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                                    </svg>
+                                    <div id="fileName" class="text-gray-600">
+                                        Drag and drop your ECG image here or click to browse
+                                    </div>
+                                    <p class="text-sm text-gray-500">
+                                        Supported formats: PNG, JPG, JPEG
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Analysis Button -->
+                        <button type="submit" 
+                            class="w-full py-3 px-6 bg-gradient-to-r from-blue-600 to-indigo-600 text-white font-semibold rounded-lg shadow-md hover:from-blue-700 hover:to-indigo-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all duration-300">
+                            Analyze ECG
+                        </button>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Image Preview Card -->
+            <div id="previewCard" class="hidden bg-white rounded-2xl shadow-xl overflow-hidden transform hover:scale-102 transition-all duration-300">
+                <div class="p-8">
+                    <h2 class="text-xl font-semibold text-gray-900 mb-4">Image Preview</h2>
+                    <div id="imagePreview" class="rounded-lg overflow-hidden">
+                        <!-- Image will be inserted here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="fixed bottom-0 w-full bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <p class="text-center text-gray-600 text-sm">
+                © 2024 ECG Analyzer Pro. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuButton.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // File upload handling
+        function updateFileName(input) {
+            const fileName = document.getElementById('fileName');
+            const previewCard = document.getElementById('previewCard');
+            
+            if (input.files && input.files[0]) {
+                // Update file name display
+                fileName.textContent = input.files[0].name;
+                
+                // Show image preview
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.classList.add('w-full', 'h-auto', 'rounded-lg');
+                    
+                    const previewDiv = document.getElementById('imagePreview');
+                    previewDiv.innerHTML = '';
+                    previewDiv.appendChild(img);
+                    
+                    // Show preview card
+                    previewCard.classList.remove('hidden');
+                    
+                    // Animate preview card
+                    gsap.from(previewCard, {
+                        y: 20,
+                        opacity: 0,
+                        duration: 0.5,
+                        ease: 'power2.out'
+                    });
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        // Initial animations
+        gsap.from('.upload-card', {
+            y: 30,
+            opacity: 0,
+            duration: 0.8,
+            ease: 'power2.out'
+        });
+    </script>
+</body>
+</html>

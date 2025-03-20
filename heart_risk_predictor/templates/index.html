@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Heart Attack Risk Calculator | Professional Medical Tool</title>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen font-sans">
+    <!-- Navbar -->
+    <nav class="bg-gradient-to-r from-blue-700 to-indigo-800 shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="flex items-center space-x-2">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                            <span class="text-white font-bold text-xl">ECG Analyzer Pro</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="/" class="text-white hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Dashboard</a>
+                        <a href="/home" class="text-white hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">ECG Analysis</a>
+                        <a href="/index" class="text-white hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Manual Analysis</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-blue-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-blue-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="/" class="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-600">Dashboard</a>
+                <a href="/home" class="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-600">ECG Analysis</a>
+                <a href="/index" class="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-600">Manual Analysis</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-4xl mx-auto py-12 px-4 sm:px-6 lg:px-8">
+        <div class="text-center mb-12">
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-2 mt-8">
+                Heart Attack Risk Calculator
+            </h1>
+            <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+                Enter your health metrics below for a comprehensive assessment of your heart health risk factors.
+            </p>
+        </div>
+
+        <form action="/result_rate" method="POST" class="bg-white rounded-2xl shadow-xl overflow-hidden">
+            <div class="p-8 space-y-8">
+                <!-- Vital Signs Section -->
+                <div class="border-b border-gray-200 pb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Vital Signs</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="heart_rate" class="block text-sm font-medium text-gray-700 mb-2">Heart Rate (BPM)</label>
+                            <input type="number" id="heart_rate" name="heart_rate" 
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200"
+                                placeholder="60-100 bpm">
+                        </div>
+                        <div>
+                            <label for="blood_pressure_sys" class="block text-sm font-medium text-gray-700 mb-2">Systolic Blood Pressure</label>
+                            <input type="number" id="blood_pressure_sys" name="blood_pressure_sys" 
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200"
+                                placeholder="90-140 mmHg">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Information Section -->
+                <div class="border-b border-gray-200 pb-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Personal Information</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="age" class="block text-sm font-medium text-gray-700 mb-2">Age</label>
+                            <input type="number" id="age" name="age" 
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200"
+                                placeholder="Enter your age">
+                        </div>
+                        <div>
+                            <label for="sex" class="block text-sm font-medium text-gray-700 mb-2">Biological Sex</label>
+                            <select id="sex" name="sex" 
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200">
+                                <option value="">Select</option>
+                                <option value="M">Male</option>
+                                <option value="F">Female</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="weight" class="block text-sm font-medium text-gray-700 mb-2">Weight (kg)</label>
+                            <input type="number" id="weight" name="weight" step="0.1"
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200"
+                                placeholder="Enter weight in kg">
+                        </div>
+                        <div>
+                            <label for="height" class="block text-sm font-medium text-gray-700 mb-2">Height (m)</label>
+                            <input type="number" id="height" name="height" step="0.01"
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200"
+                                placeholder="Enter height in meters">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Health Factors Section -->
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Health Factors</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label for="exercise_level" class="block text-sm font-medium text-gray-700 mb-2">Exercise Level (1-5)</label>
+                            <select id="exercise_level" name="exercise_level"
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200">
+                                <option value="">Select Level</option>
+                                <option value="1">1 - Sedentary</option>
+                                <option value="2">2 - Light Activity</option>
+                                <option value="3">3 - Moderate Activity</option>
+                                <option value="4">4 - Active</option>
+                                <option value="5">5 - Very Active</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="cholesterol" class="block text-sm font-medium text-gray-700 mb-2">Cholesterol Level</label>
+                            <input type="number" id="cholesterol" name="cholesterol"
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200"
+                                placeholder="mg/dL">
+                        </div>
+                        <div>
+                            <label for="smoking_status" class="block text-sm font-medium text-gray-700 mb-2">Smoking Status</label>
+                            <select id="smoking_status" name="smoking_status"
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200">
+                                <option value="">Select Status</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label for="diabetes_status" class="block text-sm font-medium text-gray-700 mb-2">Diabetes Status</label>
+                            <select id="diabetes_status" name="diabetes_status"
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200">
+                                <option value="">Select Status</option>
+                                <option value="Yes">Yes</option>
+                                <option value="No">No</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-2">
+                            <label for="family_history" class="block text-sm font-medium text-gray-700 mb-2">Family History of Heart Disease</label>
+                            <textarea id="family_history" name="family_history" rows="3"
+                                class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition duration-200"
+                                placeholder="Please provide details of any family history of heart disease..."></textarea>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="px-8 py-6 bg-gray-50 border-t border-gray-200 mb-4">
+                <button type="submit" 
+                    class="w-full bg-gradient-to-r from-indigo-600 to-blue-600 text-white text-lg font-semibold py-4 px-6 rounded-xl shadow-md hover:from-indigo-700 hover:to-blue-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 transform transition duration-200 hover:scale-[1.02]">
+                    Calculate Risk
+                </button>
+            </div>
+        </form>
+    </div>
+     <!-- Footer -->
+     <footer class="relative top-10 w-full bg-white shadow-lg">
+        <div class="max-w-7xl mx-auto px-4 py-4">
+            <p class="text-center text-gray-600 text-sm">
+                © 2024 ECG Analyzer Pro. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>ECG Analysis Results</title>
+</head>
+<body class="bg-gradient-to-br from-blue-50 to-indigo-100 min-h-screen font-sans">
+    <!-- Navbar -->
+    <nav class="bg-gradient-to-r from-blue-700 to-indigo-800 shadow-lg fixed w-full z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0">
+                        <span class="flex items-center space-x-2">
+                            <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                            </svg>
+                            <span class="text-white font-bold text-xl">ECG Analyzer Pro</span>
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Desktop Navigation -->
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="/" class="text-white hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Dashboard</a>
+                        <a href="/home" class="text-white hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">ECG Analysis</a>
+                        <a href="/index" class="text-white hover:bg-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-all duration-300">Manual Analysis</a>
+                    </div>
+                </div>
+
+                <!-- Mobile menu button -->
+                <div class="md:hidden">
+                    <button id="mobile-menu-button" class="inline-flex items-center justify-center p-2 rounded-md text-white hover:bg-blue-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-blue-800">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="/" class="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-600">Dashboard</a>
+                <a href="/home" class="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-600">ECG Analysis</a>
+                <a href="/index" class="text-white block px-3 py-2 rounded-md text-base font-medium hover:bg-blue-600">Manual Analysis</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="max-w-6xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden mt-8">
+            <!-- Header Section -->
+            <div class="bg-gradient-to-r from-blue-600 to-indigo-600 px-6 py-4">
+                <h1 class="text-2xl font-bold text-white">ECG Analysis Results</h1>
+            </div>
+
+            <div class="p-6">
+                <!-- Summary Cards -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8">
+                    <div class="bg-gray-50 p-4 rounded-xl">
+                        <div class="text-sm font-medium text-gray-500">Status</div>
+                        <div id="status" class="mt-1 text-xl font-semibold text-gray-900"></div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl">
+                        <div class="text-sm font-medium text-gray-500">Prediction</div>
+                        <div id="prediction" class="mt-1 text-xl font-semibold text-gray-900"></div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl">
+                        <div class="text-sm font-medium text-gray-500">Confidence</div>
+                        <div id="confidence" class="mt-1 text-xl font-semibold text-gray-900"></div>
+                    </div>
+                    <div class="bg-gray-50 p-4 rounded-xl">
+                        <div class="text-sm font-medium text-gray-500">Timestamp</div>
+                        <div id="timestamp" class="mt-1 text-xl font-semibold text-gray-900"></div>
+                    </div>
+                </div>
+
+                <!-- Analysis Table -->
+                <div class="bg-white rounded-xl shadow-sm mb-8">
+                    <div class="px-6 py-4 border-b border-gray-200">
+                        <h2 class="text-lg font-semibold text-gray-900">Detailed Analysis</h2>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full">
+                            <thead class="bg-gray-50">
+                                <tr>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Condition</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Probability</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Confidence Level</th>
+                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Recommendation</th>
+                                </tr>
+                            </thead>
+                            <tbody id="analysis-table" class="divide-y divide-gray-200">
+                                <!-- Rows will be dynamically inserted here -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Condition Explanations -->
+                <div class="space-y-6">
+                    <div class="bg-blue-50 rounded-xl p-6">
+                        <h3 class="text-lg font-semibold text-blue-900 mb-4">Condition Explanations</h3>
+                        <div class="space-y-4">
+                            <div class="text-sm text-blue-800" id="normal"></div>
+                            <div class="text-sm text-blue-800" id="abnormal"></div>
+                            <div class="text-sm text-blue-800" id="mi"></div>
+                            <div class="text-sm text-blue-800" id="st-changes"></div>
+                        </div>
+                    </div>
+
+                    <!-- Disclaimer -->
+                    <div class="bg-yellow-50 rounded-xl p-6">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <svg class="h-5 w-5 text-yellow-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                </svg>
+                            </div>
+                            <div class="ml-3">
+                                <h3 class="text-sm font-medium text-yellow-800">Important Notice</h3>
+                                <div class="mt-2 text-sm text-yellow-700">
+                                    <p>This analysis is for informational purposes only and should not be used as a substitute for professional medical advice. Please consult with a healthcare provider for proper diagnosis and treatment.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', () => {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Assuming the Flask backend renders `result` as JSON
+        const result = {{ result|tojson }};
+
+        // Populate general information
+        document.getElementById('status').textContent = result.status;
+        document.getElementById('prediction').textContent = result.prediction;
+        document.getElementById('confidence').textContent = `${result.confidence.toFixed(2)}%`;
+        document.getElementById('timestamp').textContent = result.timestamp;
+
+        // Populate the detailed analysis table
+        const analysisTable = document.getElementById('analysis-table');
+        const detailedAnalysis = result.detailed_analysis;
+
+        detailedAnalysis.forEach(analysis => {
+            const row = document.createElement('tr');
+            row.className = 'hover:bg-gray-50';
+            row.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">${analysis.condition}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${(analysis.probability * 100).toFixed(2)}%</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${analysis.confidence_level}</td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">${analysis.recommendation}</td>
+            `;
+            analysisTable.appendChild(row);
+        });
+
+        // Detailed explanations
+        const explanations = [
+            "Normal: The condition with the highest likelihood, though the confidence remains low. This suggests that the data input aligns more closely with a normal condition than any of the abnormalities listed but lacks a strong assurance.",
+            "Abnormal-Rhythm: A close second in likelihood, this indicates the potential presence of irregular heart rhythms, such as arrhythmias, but confidence is insufficient to recommend this diagnosis.",
+            "MI: MI refers to a heart attack. Its lower probability suggests that the input data doesn't strongly resemble typical indicators of MI, but it still cannot be completely ruled out due to the low confidence.",
+            "ST-Changes: ST changes typically signify alterations in the heart's electrical activity, which can indicate issues like ischemia. This condition ranks slightly above MI but below Normal and Abnormal-Rhythm."
+        ];
+
+        // Update explanations
+        document.getElementById('normal').textContent = explanations[0];
+        document.getElementById('abnormal').textContent = explanations[1];
+        document.getElementById('mi').textContent = explanations[2];
+        document.getElementById('st-changes').textContent = explanations[3];
+    </script>
+</body>
+</html>

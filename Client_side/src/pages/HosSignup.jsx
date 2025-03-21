@@ -119,6 +119,7 @@ function HosSignup() {
                   //  console.log("this is the response bc", response.data.token);
                   localStorage.setItem("token", response.data.token);
                   alert("hospital signed in successfull")
+                  console.log(data);
                   localStorage.setItem("id", response.data.id);
                   localStorage.setItem("userType", "hospital");
                   navigate(`/hospital-dashboard/${response.data.id}`);

@@ -65,4 +65,57 @@ public class PatientService {
 
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
+
+    public ResponseEntity<Map<String, Object>> loginPatient(String hospitalId, String email, String password) {
+        Map<String, Object> response = new HashMap<>();
+
+        // Check if hospital exists
+        Optional<Hospital> hospital = hospitalRepository.findById(hospitalId);
+        if (hospital.isEmpty()) {
+            response.put("success", false);
+            response.put("message", "Hospital not found");
+            response.put("status", HttpStatus.NOT_FOUND.value());
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(response);
+        }
+
+        // Find patient by email
+        Optional<Patient> patientOpt = patientRepository.findByEmail(email);
+        if (patientOpt.isEmpty()) {
+            response.put("success", false);
+            response.put("message", "Invalid email or password");
+            response.put("status", HttpStatus.UNAUTHORIZED.value());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
+
+        Patient patient = patientOpt.get();
+
+        // Verify password (Note: In a real application, use proper password hashing)
+        if (!patient.getPassword().equals(password)) {
+            response.put("success", false);
+            response.put("message", "Invalid email or password");
+            response.put("status", HttpStatus.UNAUTHORIZED.value());
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(response);
+        }
+
+        // Check if patient belongs to the specified hospital
+        if (!hospital.get().getPatients().contains(patient.getId())) {
+            response.put("success", false);
+            response.put("message", "Patient is not registered with this hospital");
+            response.put("status", HttpStatus.FORBIDDEN.value());
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(response);
+        }
+
+        // Generate JWT Token
+        String token = jwtUtil.generateToken(patient.getEmail());
+
+        // Prepare success response
+        response.put("success", true);
+        response.put("message", "Login successful");
+        response.put("status", HttpStatus.OK.value());
+        response.put("token", token);
+        response.put("patient", patient);
+        response.put("hospitalId", hospitalId);
+
+        return ResponseEntity.ok(response);
+    }
 }

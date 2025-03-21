@@ -100,43 +100,7 @@ function PatientDashboard() {
       <Navbar />
       <div className="flex mt-16 bg-gradient-to-b from-blue-50 to-white min-h-screen">
         <main className="flex-1 p-4">
-          <div className="mb-4">
-            {/* Safety Alerts Banner */}
-            {safetyAlerts.length > 0 && (
-              <div className="mt-4 p-3 bg-red-50 border border-red-200 rounded-lg">
-                <h2 className="text-lg font-bold text-red-700 flex items-center mb-2">
-                  <svg
-                    className="w-5 h-5 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-                    ></path>
-                  </svg>
-                  Patient Safety Alerts
-                </h2>
-                <div className="space-y-2">
-                  {safetyAlerts.map((alert, index) => (
-                    <div
-                      key={index}
-                      className={`p-2 border rounded-md flex items-start ${getSeverityColor(
-                        alert.severity
-                      )}`}
-                    >
-                      <span className="font-bold mr-2">{alert.type}:</span>{" "}
-                      {alert.message}
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
-          </div>
+
 
           <div className="p-2">
             <PatientDetails />

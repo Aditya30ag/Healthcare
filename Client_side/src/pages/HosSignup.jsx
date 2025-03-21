@@ -119,10 +119,10 @@ function HosSignup() {
                   //  console.log("this is the response bc", response.data.token);
                   localStorage.setItem("token", response.data.token);
                   alert("hospital signed in successfull")
-                  console.log(data);
-                  localStorage.setItem("id", response.data.id);
+                  console.log(response.data);
+                  localStorage.setItem("id", "67b74c32eef2e16bb41ba95c");
                   localStorage.setItem("userType", "hospital");
-                  navigate(`/hospital-dashboard/${response.data.id}`);
+                  // navigate(`/hospital-dashboard/${response.data.id}`);
                 } catch (error) {
                   console.error("An error occurred:", error);
                   console.log("Error response data:", error.response.data);

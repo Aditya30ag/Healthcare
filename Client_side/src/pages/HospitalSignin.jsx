@@ -63,7 +63,7 @@ function HospitalSignin() {
 
                   // console.log("this is the response bc", response.data);
                   localStorage.setItem("token", response.data.token);
-                  localStorage.setItem("id", response.data.id);
+                  localStorage.setItem("id", "67b74c32eef2e16bb41ba95c");
                   localStorage.setItem("userType", "hospital");
                   console.log(response.data.id);
                   navigate(`/hospital-dashboard/${response.data.id}`);
